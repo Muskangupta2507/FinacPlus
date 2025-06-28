@@ -1,0 +1,64 @@
+Coding Task Challenge:- 
+1. Write a special cipher that is a combination of Caesar’s cipher followed by a simple
+RLE. The function should receive a string and the rotation number as parameters.
+Input: special Cipher(“AABCCC”, 3) Output: D2EF3
+
+Solution:-
+
+public class CaesarCipher {
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		String text = "AAABCCCZZA";
+		int key = 3;
+		System.out.println("Text  : " + text);
+		System.out.println("Key : " + key);
+		StringBuffer ans=encrypt(text, key);
+		System.out.println("Cipher: " + ans);
+		System.out.println("Cipher with RLE: " + RLE(ans.toString()));
+	}
+	public static StringBuffer encrypt(String text, int key){
+		
+        StringBuffer ans= new StringBuffer();
+        for (int i=0; i<text.length(); i++){
+            if (Character.isUpperCase(text.charAt(i))){
+                char ch = (char)(((int)text.charAt(i) + key - 65) % 26 + 65);
+                ans.append(ch);
+            }
+            else{
+                char ch = (char)(((int)text.charAt(i) + key - 97) % 26 + 97);
+                ans.append(ch);
+            }
+        }
+        return ans;
+    }
+	public static StringBuffer RLE(String text) {
+		StringBuffer ans=new StringBuffer();
+		if(text.length()==0) {
+			return ans;
+		}
+		char initial=text.charAt(0);
+		ans.append(text.charAt(0));
+		int count=1;
+		for(int i=1;i<text.length();i++) {
+			if(initial == text.charAt(i)) {
+				count++;
+			}
+			else if(initial != text.charAt(i) && count>1) {
+				ans.append(count);
+				ans.append(text.charAt(i));
+				count=1;
+				initial=text.charAt(i);
+			}
+			else if(initial != text.charAt(i) && count==1) {
+				ans.append(text.charAt(i));
+				initial=text.charAt(i);
+			}
+			if(i==text.length()-1 && count >1) {
+				ans.append(count);
+			}
+		}
+		return ans;
+	}
+
+}
+
