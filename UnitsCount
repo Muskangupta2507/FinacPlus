@@ -1,0 +1,35 @@
+2. Write a program that finds the most optimized set of 6 units to shop with for values
+fewer than 100. Example: Units used are 1, 2, 5, 10, 20, 50 1: 1 (1 unit used) 2: 2 (1
+unit used) 3: 1+2 (2 units used) 4: 2+2 (2 units used) ... 98: 1+2+5+20+20+50 (6 units
+used) 99: 2+2+5+20+20+50 (6 units used) AVG of units = 3.4
+
+public class CoinDivideMax {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		int[] arr= {1,2,5,10,20,50};
+		int money=90;
+		int[] units=new int[arr.length];
+		int ans=0;
+		int k=money;
+		for(int i=arr.length-1;i>=0;i--) {
+			int val=k/arr[i];
+			ans+=val;
+			units[i]=val;
+			k-=arr[i]*val;
+		}
+		StringBuffer str=new StringBuffer();
+		str.append(money + " : ");
+		for(int i=0;i<units.length;i++) {
+			if(units[i]>0) {
+				for(int l=0;l<units[i];l++) {
+					str.append(arr[i] + "+");
+				}
+			}
+		}
+		str.deleteCharAt(str.length()-1);
+		System.out.println(str);
+		System.out.println("No. of units : " + ans);
+	}
+
+}
