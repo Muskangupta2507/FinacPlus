@@ -1,0 +1,46 @@
+Scenario
+3. Imagine you work for amazon, what is the Meta data information you will store for
+an item in your Database. For E.g. the item is a shirt, once you have stored the Meta
+data how will use the information?
+
+Solution:- 
+
+Lets take an example of Metadata:
+A customer searches for "Men’s Slim Fit Cotton Shirt, Size M, Blue":
+
+Search Engine filters products with:
+   Category = Clothing → Men → Shirts
+   Size = M,
+   Color = Blue,
+   Fit Type = Slim Fit,
+   Fabric = Cotton
+
+Will Sorts results by:
+   Price
+   Ratings
+   Delivery Speed (based on warehouse metadata)
+
+Displays product page using:
+   Title, images, description, price, Delivery details
+
+Post-sale:
+   Inventory updates
+   Sales trends updated
+   Review request triggered
+
+Metadata for shirt:
+Category                      Description
+Price                         Price, Discount
+Product info                  Amazon product id
+Basic info                    Brand, Description
+Size                          S/M/L etc.
+Color                         Color
+Material                      Cotton,Polyester
+Images                        Images
+Reviews                       Reviews,Ratings
+SEO                           Keywords,tags
+Return policy                 Return time
+Category                      Men/Women
+
+
+
