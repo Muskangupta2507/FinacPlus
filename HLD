@@ -13,4 +13,76 @@ platform.
 
 Solution:-
 
+High-Level Design Components
+1. External Price Sources
+            Stock Market APIs
+            Mutual Fund APIs
+            Multiple APIs providing prices in real-time.
 
+2. Data Fetcher Services
+      Price Fetcher Service
+            Pulls data every 10 minutes from external APIs.
+            Handles API rate limits and failures (with retries/fallbacks).
+      Pushes price updates to a message broker.
+
+3. Message Broker
+      Example: AWS SNS/SQS, Google Pub/Sub
+      Emits events like:
+            PriceUpdate
+            AssetUpdate
+            PortfolioRecalculate
+
+4. Processing Layer
+      Portfolio Calculation Service
+            Listens to price updates.
+            Calculates updated asset valuations.
+            Recalculates user portfolios in real-time.
+      Highly scalable.
+
+5. Database Layer (Storage)
+      User Database
+            Stores user details and accounts
+      Portfolio Database
+            Stores latest portfolio valuations.
+      Asset Database
+            Static asset metadata (symbols, types, etc.).
+      Prefer distributed databases like PostgreSQL, MongoDB, DynamoDB depending on scale.
+
+6. API Layer
+      Portfolio API Service
+            Exposes REST/WebSocket APIs.
+            Allows users to fetch their latest portfolio.
+      Supports real-time data access.
+
+7. Frontend Layer (Client)
+      Web or Mobile App
+            Dashboard to show the portfolio.
+            Polls API or listens over WebSockets for instant updates.
+
+8. Monitoring & Reliability
+Monitoring Tools: Prometheus, Grafana, ELK, Datadog.
+Health Checks & Alerts: For failures in data ingestion, processing, or delivery.
+
+
+External Price Sources
+          |
+          |
+(refresh every 10 mins)
+          |
+          |
+Price Fetcher Service ----------------- Asset/Account Update
+          |                                   |
+          |                                   |
+          |                                   |
+          -----------Message Broker -----------
+                            |
+                            |
+                        Database Cluster
+                      (UserDatabase)(Portfolio DB)
+                          (Asset DB)
+                            |
+                            |
+                        API Service
+                            |
+                            |
+                  Web/Mobile Dashboard (Client)
